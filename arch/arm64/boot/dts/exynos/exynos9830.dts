@@ -800,7 +800,7 @@
 			cal-id = <ACPM_DVFS_CPUCL1>;
 			dm-type = <DM_CPU_CL1>;
 
-			max-freq = <2600000>;
+			max-freq = <2808000>;
 			min-freq = <507000>;
 
 			/* PM QoS Class ID*/
@@ -819,7 +819,8 @@
 					dynamic-disable;
 
 						/* cpu     mif */
-					table = < 2600000 2730000
+					table = < 2808000 2730000
+                        2600000 2730000
 						2504000 2730000
 						2400000 2535000
 						2314000 2535000
@@ -863,7 +864,7 @@
 			dm-type = <DM_CPU_CL2>;
 			need-awake;
 
-			max-freq = <2730000>;
+			max-freq = <2964000>;
 			min-freq = <546000>;
 
 			/* PM QoS Class ID*/
@@ -884,7 +885,7 @@
 					dynamic-disable;
 
 					/*  cpu     mif  */
-					table = < 3016000 2730000
+					table = < 2964000 2730000
 						2834000 2730000
 						2730000 2730000
 						2626000 2730000
@@ -930,7 +931,7 @@
 		compatible = "samsung,exynos-hiu";
 		interrupts = <GIC_SPI INTREQ__CPUCL2_GCUIRQ IRQ_TYPE_LEVEL_HIGH>;
 		boost-threshold = <2002000>;
-		boost-max = <2730000>;
+		boost-max = <2964000>;
 		cal-id = <ACPM_DVFS_CPUCL2>;
 		sw-pbl = <0xff>;
 		bl1-inc = <0>;
