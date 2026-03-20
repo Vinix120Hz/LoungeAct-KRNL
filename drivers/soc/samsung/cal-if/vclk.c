@@ -458,6 +458,12 @@ static int vclk_get_dfs_info(struct vclk *vclk)
 		vclk->min_freq = minmax_table[MINMAX_MIN_FREQ] * 1000;
 		vclk->max_freq = minmax_table[MINMAX_MAX_FREQ] * 1000;
 	}
+	
+	if (!strcmp(vclk->name, "CPUCL2") && vclk->max_freq < 2964000)
+		vclk->max_freq = 2964000;
+	if (!strcmp(vclk->name, "CPUCL1") && vclk->max_freq < 2808000)
+		vclk->max_frew = 2808000;
+
 	pr_debug("ACPM_DVFS :%s\n", vclk->name);
 
 	vclk->list = kzalloc(sizeof(unsigned int) * vclk->num_list, GFP_KERNEL);
