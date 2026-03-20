@@ -183,7 +183,7 @@ CMDLINE='androidboot.hardware=exynos990 loop.max_part=7'
 HASHTYPE=sha1
 HEADER_VERSION=2
 OS_PATCH_LEVEL=2025-08
-OS_VERSION=16.0.0
+OS_VERSION=15.0.0
 PAGESIZE=2048
 RAMDISK=build/out/$MODEL/ramdisk.cpio.gz
 OUTPUT_FILE=build/out/$MODEL/boot.img
@@ -205,6 +205,13 @@ echo "-----------------------------------------------"
 ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtbo.img build/dtconfigs/$MODEL.cfg -d out/arch/arm64/boot/dts/samsung
 
 if [ -z "$RECOVERY" ] && [ -z "$DTBS" ]; then
+    # Build ramdisk
+    echo "Building RAMDisk..."
+    echo "-----------------------------------------------"
+    pushd build/ramdisk > /dev/null
+     find . ! -name . | LC_ALL=C sort | cpio -o -H newc -R root:root | gzip > ../out/$MODEL/ramdisk.cpio.gz || abort
+    popd > /dev/null
+    echo "-----------------------------------------------"
 
     # Create boot image
     echo "Creating boot image..."
