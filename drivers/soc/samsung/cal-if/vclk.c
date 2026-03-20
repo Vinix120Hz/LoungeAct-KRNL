@@ -462,7 +462,7 @@ static int vclk_get_dfs_info(struct vclk *vclk)
 	if (!strcmp(vclk->name, "CPUCL2") && vclk->max_freq < 2964000)
 		vclk->max_freq = 2964000;
 	if (!strcmp(vclk->name, "CPUCL1") && vclk->max_freq < 2808000)
-		vclk->max_frew = 2808000;
+		vclk->max_freq = 2808000;
 
 	pr_debug("ACPM_DVFS :%s\n", vclk->name);
 
