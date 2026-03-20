@@ -205,13 +205,6 @@ echo "-----------------------------------------------"
 ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtbo.img build/dtconfigs/$MODEL.cfg -d out/arch/arm64/boot/dts/samsung
 
 if [ -z "$RECOVERY" ] && [ -z "$DTBS" ]; then
-    # Build ramdisk
-    echo "Building RAMDisk..."
-    echo "-----------------------------------------------"
-    pushd build/ramdisk > /dev/null
-     find . ! -name . | LC_ALL=C sort | cpio -o -H newc -R root:root | gzip > ../out/$MODEL/ramdisk.cpio.gz || abort
-    popd > /dev/null
-    echo "-----------------------------------------------"
 
     # Create boot image
     echo "Creating boot image..."
