@@ -1,0 +1,53 @@
+name: Build LoungeAct Kernel
+
+on:
+  push:
+    branches: [ lineage-23.2 ]
+  pull_request:
+    branches: [ lineage-23.2 ]
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Modelo do aparelho (ex: x1s, y2s, z3s, r8s)'
+        required: true
+        default: 'x1s'
+      ksu:
+        description: 'Incluir KernelSU? (y/n)'
+        required: true
+        default: 'y'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive # Necessário para o KernelSU
+
+      - name: Instalar Dependências
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bison flex libssl-dev make zip python3 cpio binutils-aarch64-linux-gnu
+
+      - name: Clonar AnyKernel3
+        run: |
+          # Só clona se a pasta ainda não existir no repo
+          if [ ! -d "AnyKernel3" ]; then
+            git clone https://github.com/osm0sis/AnyKernel3.git AnyKernel3
+          fi
+
+      - name: Build Kernel
+        run: |
+          chmod +x ./build.sh
+          # Usa os inputs do workflow ou valores padrão
+          MODEL=${{ github.event.inputs.model || 'x1s' }}
+          KSU=${{ github.event.inputs.ksu || 'y' }}
+          ./build.sh -m $MODEL -k $KSU
+
+      - name: Upload built kernels
+        uses: actions/upload-artifact@v4
+        with:
+          name: LoungeAct-Kernel-${{ github.event.inputs.model || 'x1s' }}
+          path: build/out/**/*.zip
