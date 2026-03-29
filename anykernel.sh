@@ -4,13 +4,13 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=z3s KernelSU SUSFS
+kernel.string=x1s KernelSU
 do.devicecheck=1
 do.modules=0
 do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=z3s
+device.name1=x1s
 device.name2=
 device.name3=
 device.name4=
