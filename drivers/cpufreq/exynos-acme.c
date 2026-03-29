@@ -1657,8 +1657,6 @@ static __init int cpufreq_read_mif_max(char *mif_max)
 	return ret;
 }
 __setup("mif_max=", cpufreq_read_mif_max);
-
->>>>>>> 1fccb7ec11fd (ECT : introduce exynos-calibration system)
 static __init int init_domain(struct exynos_cpufreq_domain *domain,
 					struct device_node *dn)
 {
